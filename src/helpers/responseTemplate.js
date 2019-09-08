@@ -21,3 +21,11 @@ export const badRequest = (response, data) => {
         data: data || {}
     })
 }
+
+const unAuthorized = (response, data) => {
+    return response.status(401).send({
+        error: true,
+        message: "Unauthorized",
+        data: data || {}
+    })
+}
