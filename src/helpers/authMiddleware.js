@@ -3,7 +3,7 @@ import { unAuthorized, internalServerError, success } from './responseTemplate'
 import accessTokenConfig from '../config/accessTokenConfig'
 import refreshTokenConfig from '../config/refreshTokenConfig'
 
-export default (db) => {
+export default () => {
     return (request, response, next) => {
         if(request.headers.authorization && request.headers.refreshTokenConfig){
             let accessToken = req.headers['authorization'].split(' ')[1]
