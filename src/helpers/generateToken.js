@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import db from '../helpers/getConnection'
 import accessTokenConfig from '../config/accessTokenConfig'
 import refreshTokenConfig from '../config/refreshTokenConfig'
 
@@ -22,21 +21,11 @@ export default (data) => {
                                 reject(err)
                             }
                             else{
-                                let query = {
+                                let token = {
+                                    accessToken,
                                     refreshToken
                                 }
-                                db.refresh_token.insert(query, (err, doc) => {
-                                    if(err){
-                                        reject(err)
-                                    }
-                                    if(doc){
-                                        let token = {
-                                            accessToken,
-                                            refreshToken
-                                        }
-                                        resolve(token)
-                                    }
-                                })
+                                resolve(token)
                             }
                         })
                 }

@@ -1,6 +1,6 @@
 const config = {
     secret: 'refresh123',
-    expiresIn: '20d'
+    expiresIn: '1y'
 }
 
 export default config
