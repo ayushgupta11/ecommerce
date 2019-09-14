@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon  -w ./ --exec \"babel-node src/index.js --presets es2015,stage-0\" --inspect",
     "build": "babel src --out-dir dist --presets minify",
+    "serve:build": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "babel": {
