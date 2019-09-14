@@ -1,1 +1,1 @@
-web: npm run serve:build
+web: npm i -g babel-cli && npm run serve:build
