@@ -27,7 +27,8 @@ export default (db) => {
                         let userData = {...doc}
                         delete userData['password']
                         generateToken(userData).then((token) => {
-                            success(response, token)
+                            userData['token'] = token
+                            success(response, userData)
                         }).catch((err) => {
                             internalServerError(response, err)
                         })

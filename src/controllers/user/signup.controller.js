@@ -5,7 +5,9 @@ import generateToken from '../../helpers/generateToken'
 export default (db) => {
     return (request, response) => {
         const { data } = request.body
+        console.log(request.body)
         if(data){
+            console.log(data)
             const email = data.email
             const password = passwordHash.generate(data.password.trim())
             const name = data.name
@@ -14,14 +16,17 @@ export default (db) => {
                 name,
                 password
             }
+            console.log(query)
             if(email.trim().length && password.trim().length && name.trim().length){
                 db.users.findOne({
                     email
                 }, (err, doc) => {
                     if(err){
+                        console.log(err)
                         internalServerError(response, err)
                     }
                     else{
+                        console.log(doc)
                         if(doc){
                             response.status(401).send({
                                 error: true,
@@ -37,17 +42,20 @@ export default (db) => {
                                 if(doc){
                                     let userData = {...doc}
                                     delete userData['password']
-                                    generateToken(userData).then((token) => {
-                                        success(response, token)
-                                    }).catch((err) => {
-                                        internalServerError(response, err)
-                                    })
+                                    // generateToken(userData).then((token) => {
+                                        success(response, userData)
+                                    // }).catch((err) => {
+                                        // internalServerError(response, err)
+                                    // })
                                 }
                             })
                         }
                     }
                 })
             }
+        }
+        else{
+            badRequest(response)
         }
     }
 }
