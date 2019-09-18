@@ -2,6 +2,13 @@ import mongo from 'mongojs'
 import dbConfig from '../config/dbConfig'
 
 const db = mongo(dbConfig.url, dbConfig.collections)
-console.log("DB Connected!")
+
+db.on('error', function (err) {
+    console.log('database error', err)
+})
+ 
+db.on('connect', function () {
+    console.log('database connected')
+})
 
 export default db
