@@ -12,7 +12,8 @@ export default (db) => {
                 size,
                 total,
                 discount,
-                customer_id: mongojs.ObjectId(user._id)
+                customer_id: mongojs.ObjectId(user._id),
+                timestamp: Date.now()
             }
             db.cart.findAndModify({
                 "query": {

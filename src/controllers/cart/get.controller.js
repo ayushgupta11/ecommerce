@@ -9,12 +9,27 @@ export default (db) => {
             let query = {
                 customer_id: mongojs.ObjectId(user._id)
             }
-            db.cart.find(query, (err, doc) => {
+            db.cart.find(query, (err, cartItems) => {
                 if(err){
-                    internalServerError(response, doc)
+                    internalServerError(response, cartItems)
                 }
                 else{
-                    success(response, doc)
+                    let products = cartItems.map((item) => { return item.product_id })
+                    db.products.find({ _id: { $in: products } }, (err, productObjs) => {
+                        if(err){
+                            internalServerError(response, productObjs)
+                        }
+                        else{
+                            let products = {}
+                            productObjs.forEach((product) => {
+                                products[product._id] = product
+                            })
+                            cartItems.forEach((item) => {
+                                item['product'] = products[item.product_id]
+                            })
+                            success(response, cartItems)
+                        }
+                    })
                 }
             })
         }

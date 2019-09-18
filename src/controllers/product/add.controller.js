@@ -4,7 +4,7 @@ export default (db) => {
     return (request, response) => {
         let { data } = request.body
         if(data){
-            let { name, description, price, freeDelivery, category, brand, groupName, keywords, discount } = data
+            let { name, description, price, freeDelivery, category, brand, groupName, keywords, discount, sizes } = data
             let query = {
                 name,
                 description,
@@ -12,6 +12,7 @@ export default (db) => {
                 freeDelivery,
                 category,
                 brand,
+                sizes,
                 groupName,
                 keywords,
                 discount,

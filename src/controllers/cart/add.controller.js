@@ -7,12 +7,13 @@ export default (db) => {
         if(data){
             let {product_id, quantity, size, total, discount, user} = data
             let query = {
-                product_id,
+                'product_id' : mongojs.ObjectId(product_id),
                 quantity,
                 size,
                 total,
                 discount,
-                customer_id : mongojs.ObjectId(user._id)
+                customer_id : user? mongojs.ObjectId(user._id): mongojs.ObjectId(),
+                timestamp: Date.now()
             }
             db.cart.insert(query, (err, doc) => {
                 if(err){
