@@ -6,8 +6,8 @@ import generateToken from './generateToken'
 
 export default (request, response, next) => {
     if (request.headers.authorization && request.headers.refreshtokenconfig) {
-        let accessToken = request.headers['authorization'].split(' ')[1]
-        let refreshToken = request.headers['refreshtokenconfig'].split(' ')[1]
+        let accessToken = request.headers['authorization']
+        let refreshToken = request.headers['refreshtokenconfig']
         jwt.verify(accessToken, accessTokenConfig.secret, (err, decoded) => {
             if (err || decoded == undefined) {
                 jwt.verify(refreshToken, refreshTokenConfig.secret, (err, decoded) => {
@@ -24,6 +24,7 @@ export default (request, response, next) => {
                 })
             }
             else {
+                request.body['data'] = {}
                 request.body['data']['user'] = decoded
                 next()
             }
