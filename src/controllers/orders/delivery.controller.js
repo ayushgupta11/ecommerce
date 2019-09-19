@@ -1,20 +1,22 @@
-import { success, internalServerError, badRequest } from '../../helpers/responseTemplate'
 import mongojs from 'mongojs'
+import { success, internalServerError, badRequest } from '../../helpers/responseTemplate'
 
 export default (db) => {
     return (request, response) => {
-        let { data } = request.body
+        let {data} = request.body
         if(data){
-            let { details, discountCode, cartItems, status, user } = data
+            let {name, mobile, pincode, address, town, city, state, user} = data
             let query = {
-                details,
-                discountCode,
-                cartItems,
-                status,
-                timestamp: Date.now(),
+                name,
+                mobile,
+                pincode,
+                address,
+                town,
+                city,
+                state,
                 customer_id: mongojs.ObjectId(user._id)
             }
-            db.orders.insert(query, (err, doc) => {
+            db.delivery.insert(query, (err, doc) => {
                 if(err){
                     internalServerError(response, err)
                 }
