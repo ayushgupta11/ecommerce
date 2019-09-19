@@ -5,9 +5,9 @@ export default (db) => {
     return (request, response) => {
         let { data } = request.body
         if(data){
-            let { product_id, user } = data
+            let { cart_id, user } = data
             let query = {
-                product_id,
+                "_id": mongojs.ObjectId(cart_id),
                 customer_id : mongojs.ObjectId(user._id)
             }
             db.cart.remove(query, (err, doc) => {

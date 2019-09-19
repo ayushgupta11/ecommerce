@@ -6,16 +6,25 @@ export default (db) => {
         let {data} = request.body
         if(data){
             let {product_id, quantity, size, total, discount, user} = data
+            let customer_id = mongojs.ObjectId(user._id)
             let query = {
                 'product_id' : mongojs.ObjectId(product_id),
                 quantity,
                 size,
                 total,
                 discount,
-                customer_id : user? mongojs.ObjectId(user._id): mongojs.ObjectId(),
+                customer_id,
                 timestamp: Date.now()
             }
-            db.cart.insert(query, (err, doc) => {
+            db.cart.findAndModify({
+                query: {
+                    "customer_id": customer_id,
+                    "product_id": mongojs.ObjectId(product_id)
+                },
+                update: query,
+                new: true,
+                upsert: true
+            }, (err, doc) => {
                 if(err){
                     internalServerError(response, err)
                 }
