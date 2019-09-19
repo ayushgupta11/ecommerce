@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { unAuthorized, internalServerError, success } from './responseTemplate'
+import { unAuthorized, internalServerError } from './responseTemplate'
 import accessTokenConfig from '../config/accessTokenConfig'
 import refreshTokenConfig from '../config/refreshTokenConfig'
 import generateToken from './generateToken'

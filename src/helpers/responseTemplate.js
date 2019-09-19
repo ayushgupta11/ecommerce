@@ -22,7 +22,7 @@ export const badRequest = (response, data) => {
     })
 }
 
-const unAuthorized = (response, data) => {
+export const unAuthorized = (response, data) => {
     return response.status(401).send({
         error: true,
         message: "Unauthorized",
