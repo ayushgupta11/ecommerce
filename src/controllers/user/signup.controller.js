@@ -42,11 +42,12 @@ export default (db) => {
                                 if(doc){
                                     let userData = {...doc}
                                     delete userData['password']
-                                    // generateToken(userData).then((token) => {
+                                    generateToken(userData).then((token) => {
+                                        userData['token'] = token
                                         success(response, userData)
-                                    // }).catch((err) => {
-                                        // internalServerError(response, err)
-                                    // })
+                                    }).catch((err) => {
+                                        internalServerError(response, err)
+                                    })
                                 }
                             })
                         }
