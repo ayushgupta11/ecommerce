@@ -6,17 +6,22 @@ export default (db) => {
         let { data } = request.body
         if (data) {
             let { details, discountCode, cartItems, status, user } = data
-            db.cart.find({ _id: { $in: cartItems } }, (err, cartObjs) => {
+            let cartIdItems = cartItems.map((item) => {
+                return mongojs.ObjectId(item)
+            })
+            db.cart.find({ _id: { $in: cartIdItems } }, (err, cartObjs) => {
                 if (err) {
                     internalServerError(response, err)
                 }
                 else {
-                    let cartObjectItems = cartObjs
-                    db.cart.remove({ _id: { $in: cartItems }}, (err, doc) => {
+                    let cartObjectItems = [...cartObjs]
+                    // console.log(cartObjectItems)
+                    db.cart.remove({ _id: { $in: cartIdItems }}, (err, doc) => {
                         if(err){
                             internalServerError(response, err)
                         }
                         else{
+                            // console.log(cartObjectItems)
                             let query = {
                                 details,
                                 discountCode,
