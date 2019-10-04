@@ -3,9 +3,9 @@ import mongojs from 'mongojs'
 
 export default (db) => {
     return (request, response) => {
-        if(request.params.id.match(/^[0-9a-fA-F]{24}$/)){
+        // if(request.params.id.match(/^[0-9a-fA-F]{24}$/)){
             db.products.findOne({
-                '_id': mongojs.ObjectId(request.params.id)
+                '_id': request.params.id
             }, (err, doc) => {
                 if (err) {
                     internalServerError(response, err)
@@ -14,9 +14,9 @@ export default (db) => {
                     success(response, doc)
                 }
             })
-        }
-        else{
-            badRequest(response)
-        }
+        // }
+        // else{
+        //     badRequest(response)
+        // }
     }
 }

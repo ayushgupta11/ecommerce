@@ -8,7 +8,7 @@ export default (db) => {
             let {product_id, quantity, size, total, discount, user, flavour} = data
             let customer_id = mongojs.ObjectId(user._id)
             let query = {
-                'product_id' : mongojs.ObjectId(product_id),
+                'product_id' : product_id,
                 quantity,
                 size,
                 flavour,
@@ -20,7 +20,7 @@ export default (db) => {
             db.cart.findAndModify({
                 query: {
                     "customer_id": customer_id,
-                    "product_id": mongojs.ObjectId(product_id)
+                    "product_id": product_id
                 },
                 update: query,
                 new: true,
