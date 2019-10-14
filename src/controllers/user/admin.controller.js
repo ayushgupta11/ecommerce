@@ -11,7 +11,7 @@ export default (db) => {
             let query ={
                 email
             }
-            db.users.findOne(query, (err, doc) => {
+            db.admin.findOne(query, (err, doc) => {
                 if(err){
                     internalServerError(response, err)
                 }

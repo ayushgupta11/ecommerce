@@ -18,7 +18,7 @@ export default (db) => {
             }
             console.log(query)
             if(email.trim().length && password.trim().length && name.trim().length){
-                db.users.findOne({
+                db.admin.findOne({
                     email
                 }, (err, doc) => {
                     if(err){
@@ -35,7 +35,7 @@ export default (db) => {
                             })
                         }
                         else{
-                            db.users.insert(query, (err, doc) => {
+                            db.admin.insert(query, (err, doc) => {
                                 if(err){
                                     internalServerError(response, err)
                                 }
