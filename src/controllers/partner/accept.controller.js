@@ -9,7 +9,9 @@ export default (db) => {
             db.partner.update(
                 { '_id' : mongojs.ObjectId(_id) },
                 {
-                    accepted: status
+                    $set:{
+                        accepted: status
+                    }
                 },
                 {
                     upsert: true
