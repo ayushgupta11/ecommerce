@@ -17,6 +17,7 @@ export default (db) => {
                 customer_id,
                 timestamp: Date.now()
             }
+            
             db.cart.findAndModify({
                 query: {
                     "customer_id": customer_id,
